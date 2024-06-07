@@ -12,6 +12,8 @@ If it doesn't work just fiddle with it idk. Make sure you've got all the right s
 ## Usage
 Launch the program with `./minesweeper`. The program takes 3 optional command-line arguments, integer values—inputting 1 will launch with a square field with sides of that size, with 2, the first value is used for the length and the second for height. Inputting a third argument will set a custom mine count, else the target count will be calculated based on the size of the field. Field dimensions must be between 4 and 99, and mine count must be between 1 and half the total field size (or field size − 9, if you're playing in 4 × 4). If no dimensions are given an 8 × 8 field will be used.
 
+As stated earlier, I haven't implemented a way to restart from within the game, so you'll just have to close and relaunch. Think of it like getting up to press the reset button on an old game console :)
+
 The game has a few systems in place to make playing more pleasant. Your first click will always be safe and reveal all tiles around it, and there's guarenteed to not be a mine completely surrounded by other mines or the border. I wasn't able to eliminate 50/50s entirely, however, but I think I still did a pretty good job!
 
 Enjoy! :)
