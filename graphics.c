@@ -1,7 +1,14 @@
 #include "tigr/tigr.h"
 #include "minesweeper.h"
 
-#include <stdio.h>
+// Very cool of TIGR to not bother abstracting platform-specific mouse values 👍
+#ifdef __unix__
+#define MOUSE_LEFT 1
+#define MOUSE_RIGHT 2
+#elif _WIN32
+#define MOUSE_LEFT 1
+#define MOUSE_RIGHT 4
+#endif
 
 typedef struct
 {
@@ -133,7 +140,7 @@ void drawTile(Tigr *screen, int x, int y, tile field[length][height], Mouse mous
         if (xPos+1 < mouse.x && mouse.x < xPos+TS-2 &&
             yPos+1 < mouse.y && mouse.y < yPos+TS-2 && status == START)
         {
-            if (mouse.b == 1 && !field[x][y].flagged && !mouse.last)
+            if (mouse.b == MOUSE_LEFT && !field[x][y].flagged && !mouse.last)
             {
                 setup(field, x, y);
                 dig(field, x, y);
@@ -143,11 +150,11 @@ void drawTile(Tigr *screen, int x, int y, tile field[length][height], Mouse mous
         else if (xPos+1 < mouse.x && mouse.x < xPos+TS-2 &&
             yPos+1 < mouse.y && mouse.y < yPos+TS-2 && status == ACTIVE)
         {
-            if (mouse.b == 1 && !field[x][y].flagged && !mouse.last)
+            if (mouse.b == MOUSE_LEFT && !field[x][y].flagged && !mouse.last)
             {
                 dig(field, x, y);
             }
-            else if (mouse.b == 2 && !mouse.last)
+            else if (mouse.b == MOUSE_RIGHT && !mouse.last)
             {
                 field[x][y].flagged = !field[x][y].flagged;
                 if (field[x][y].flagged)
