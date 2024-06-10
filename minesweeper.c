@@ -6,6 +6,10 @@
 #include <math.h>
 #include "minesweeper.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 typedef struct
 {
     int mines;
@@ -237,6 +241,7 @@ int commission(int order)
     return quota;
 }
 
+#ifdef __unix__
 int endTimer()
 {
     static bool started;
@@ -250,3 +255,18 @@ int endTimer()
     clock_gettime(CLOCK_REALTIME, &endTime);
     return (endTime.tv_sec - startTime.tv_sec) + (endTime.tv_nsec - startTime.tv_nsec) / 1e9;
 }
+#elif _WIN32
+int endTimer()
+{
+    static bool started;
+    static DWORD startTime;
+    DWORD endTime;
+    if (!started)
+        {
+            startTime = GetTickCount();
+            started = true;
+        }
+    endTime = GetTickCount();
+    return (endTime - startTime) / 1000;
+}
+#endif

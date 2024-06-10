@@ -5,9 +5,9 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		LDFLAGS += -framework OpenGL -framework Cocoa
 	else ifeq ($(UNAME_S),Linux)
-		LDFLAGS += -lGLU -lGL -lX11
+		LDFLAGS += -lGLU -lGL -lX11 -lrt
 	endif
 endif
 
 minesweeper : minesweeper.c graphics.c tigr/tigr.c
-	gcc $^ -g -o $@ $(CFLAGS) $(LDFLAGS) -lm -lrt
+	gcc $^ -g -o $@ $(CFLAGS) $(LDFLAGS) -lm
